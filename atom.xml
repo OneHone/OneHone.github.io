@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://hone.cool/"/>
+  <link href="OneHone.github.io/"/>
   <updated>2018-01-26T17:00:58.892Z</updated>
-  <id>http://hone.cool/</id>
+  <id>OneHone.github.io/</id>
   
   <author>
     <name>Hone</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>zz</title>
-    <link href="http://hone.cool/2018/01/27/zz/"/>
-    <id>http://hone.cool/2018/01/27/zz/</id>
+    <link href="OneHone.github.io/2018/01/27/zz/"/>
+    <id>OneHone.github.io/2018/01/27/zz/</id>
     <published>2018-01-26T17:00:58.000Z</published>
     <updated>2018-01-26T17:00:58.892Z</updated>
     
@@ -32,8 +32,8 @@
   
   <entry>
     <title>demo</title>
-    <link href="http://hone.cool/2018/01/27/demo/"/>
-    <id>http://hone.cool/2018/01/27/demo/</id>
+    <link href="OneHone.github.io/2018/01/27/demo/"/>
+    <id>OneHone.github.io/2018/01/27/demo/</id>
     <published>2018-01-26T16:09:02.000Z</published>
     <updated>2018-01-26T16:09:02.503Z</updated>
     
@@ -46,8 +46,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://hone.cool/2018/01/25/hello-world/"/>
-    <id>http://hone.cool/2018/01/25/hello-world/</id>
+    <link href="OneHone.github.io/2018/01/25/hello-world/"/>
+    <id>OneHone.github.io/2018/01/25/hello-world/</id>
     <published>2018-01-25T11:44:19.369Z</published>
     <updated>2018-01-26T16:09:24.127Z</updated>
     
