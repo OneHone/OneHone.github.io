@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2018-01-26T17:00:58.892Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://hone.cool/"/>
+  <updated>2018-01-26T17:23:07.202Z</updated>
+  <id>http://hone.cool/</id>
   
   <author>
     <name>Hone</name>
@@ -17,9 +17,23 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>123</title>
+    <link href="http://hone.cool/2018/01/27/123/"/>
+    <id>http://hone.cool/2018/01/27/123/</id>
+    <published>2018-01-26T17:23:07.000Z</published>
+    <updated>2018-01-26T17:23:07.202Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>zz</title>
-    <link href="http://yoursite.com/2018/01/27/zz/"/>
-    <id>http://yoursite.com/2018/01/27/zz/</id>
+    <link href="http://hone.cool/2018/01/27/zz/"/>
+    <id>http://hone.cool/2018/01/27/zz/</id>
     <published>2018-01-26T17:00:58.000Z</published>
     <updated>2018-01-26T17:00:58.892Z</updated>
     
@@ -31,23 +45,9 @@
   </entry>
   
   <entry>
-    <title>CBA</title>
-    <link href="http://yoursite.com/2018/01/27/CBA/"/>
-    <id>http://yoursite.com/2018/01/27/CBA/</id>
-    <published>2018-01-26T16:51:35.000Z</published>
-    <updated>2018-01-26T16:51:35.603Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>demo</title>
-    <link href="http://yoursite.com/2018/01/27/demo/"/>
-    <id>http://yoursite.com/2018/01/27/demo/</id>
+    <link href="http://hone.cool/2018/01/27/demo/"/>
+    <id>http://hone.cool/2018/01/27/demo/</id>
     <published>2018-01-26T16:09:02.000Z</published>
     <updated>2018-01-26T16:09:02.503Z</updated>
     
@@ -60,8 +60,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2018/01/25/hello-world/"/>
-    <id>http://yoursite.com/2018/01/25/hello-world/</id>
+    <link href="http://hone.cool/2018/01/25/hello-world/"/>
+    <id>http://hone.cool/2018/01/25/hello-world/</id>
     <published>2018-01-25T11:44:19.369Z</published>
     <updated>2018-01-26T16:09:24.127Z</updated>
     
