@@ -120,7 +120,7 @@
 <meta property="og:image" content="/images/RMI9.PNG">
 <meta property="og:image" content="/images/RMI10.PNG">
 <meta property="og:image" content="/images/RMI11.PNG">
-<meta property="og:updated_time" content="2018-01-27T19:33:03.888Z">
+<meta property="og:updated_time" content="2018-01-27T19:37:08.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVARMI漏洞之旅">
 <meta name="twitter:description" content="博客刚搭建不久，有些美工还没做。##其实我不想在搞了，搭建个博客麻烦得要死。 今天周末天气不错，兜兜转转也不懂要做什么。最近在研究RMI反序列化漏洞，就写一片文章吧。 突破口在一次nmap扫描过程中发现了目标机子8100端口存在java RMI服务于是用attackRMI.jar链接该端口，成功回显系统信息 执行cat /proc/version  id  命令 写马失败Liunx的版本号比较低，">
@@ -433,11 +433,9 @@
 <p>马儿出不了，那就翻翻有啥利用的东西。在经过疯狂的<code>ls</code>之后找到了几个数据库密码：<br><img src="/images/RMI3.PNG" alt=""></p>
 <h2 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h2><p>既然突破不了，为何不去扫扫C段？果然在其同网段的一台机子的8800端口发现了同样的漏洞：<br><img src="/images/RMI4.PNG" alt=""><br>说干就干，运气不错，系统权限<br><img src="/images/RMI5.PNG" alt=""><br>windows 2008 32位 没有域<br><img src="/images/RMI6.PNG" alt=""></p>
 <p><code>netstat -ano</code>对方开了3389<br><img src="/images/RMI7.PNG" alt=""><br>添加用户<br><code>net user admln admin /add &amp; net localgoup administrators admln /add</code><br>成功添加用户之后用<code>mstsc</code>命令远程链接发现报错：<br><img src="/images/RMI8.PNG" alt=""><br>原来该机子没有把自己的3389端口映射出来，不好的情况发生了，这台和之前的一样不能通外网，正当想办法的时候，小伙伴在该C段拿下了台<code>liunx</code>的机子，通过端口漏洞<code>jdwp</code>，过程大致说下，该漏洞是远程执行命令的，然后通过执行命令找到web服务的根路径，向其写入一句话。乌云有篇关于<code>jdwp</code>的文章，有兴趣的去看下。</p>
-<h2 id="内网游游"><a href="#内网游游" class="headerlink" title="内网游游"></a>内网游游</h2><p>在已拿下的<code>liunx</code>机子上安装了<code>reGeorg</code>代理，然后通过代理远程链接之前的win 08机子</p>
-<p><img src="/images/RMI9.PNG" alt=""></p>
+<h2 id="内网游游"><a href="#内网游游" class="headerlink" title="内网游游"></a>内网游游</h2><p>在已拿下的<code>liunx</code>机子上安装了<code>reGeorg</code>代理，然后通过代理远程链接之前的win 08机子<br><img src="/images/RMI9.PNG" alt=""></p>
 <p>用到<code>mimikatz</code>获取管理员的哈希及明文密码<br><img src="/images/RMI10.PNG" alt=""></p>
-<p>之前写马失败的那台，通过<code>wget</code>到内网机子里获取到一句话,也成功拿下了。</p>
-<p><img src="/images/RMI11.PNG" alt=""></p>
+<p>之前写马失败的那台，通过<code>wget</code>到内网机子里获取到一句话,也成功拿下了。<br><img src="/images/RMI11.PNG" alt=""></p>
 <p>内网很大，这里就不继续写下去了。</p>
 <p>刮好大的风啊，准备要下雨了，走人走人。</p>
 
