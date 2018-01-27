@@ -5,16 +5,4 @@
     <url>%2F2018%2F01%2F28%2Fmmm%2F</url>
     <content type="text"><![CDATA[##突破口]]></content>
   </entry>
-  <entry>
-    <title><![CDATA[JAVARMI漏洞之旅]]></title>
-    <url>%2F2018%2F01%2F27%2FJAVARMI%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%97%85%2F</url>
-    <content type="text"><![CDATA[博客刚搭建不久，有些美工还没做。##其实我不想在搞了，搭建个博客麻烦得要死。 今天周末天气不错，兜兜转转也不懂要做什么。最近在搞RMI反序列化漏洞，就写一片文章吧。 ##突破口在一次nmap扫描过程中发现了目标机子8100端口存在java RMI服务，于是用attackRMI.jar链接该端口。 成功回显系统信息 执行cat /proc/version id ifconfig]]></content>
-      <categories>
-        <category>web安全</category>
-      </categories>
-      <tags>
-        <tag>RMI漏洞</tag>
-        <tag>内网渗透</tag>
-      </tags>
-  </entry>
 </search>

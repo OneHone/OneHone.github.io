@@ -38,33 +38,4 @@
     
   </entry>
   
-  <entry>
-    <title>JAVARMI漏洞之旅</title>
-    <link href="OneHone.github.io/2018/01/27/JAVARMI%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%97%85/"/>
-    <id>OneHone.github.io/2018/01/27/JAVARMI漏洞之旅/</id>
-    <published>2018-01-27T12:42:55.000Z</published>
-    <updated>2018-01-27T16:08:48.717Z</updated>
-    
-    <content type="html"><![CDATA[<p>博客刚搭建不久，有些美工还没做。<strong>##其实我不想在搞了，搭建个博客麻烦得要死。</strong></p><p>今天周末天气不错，兜兜转转也不懂要做什么。最近在搞RMI反序列化漏洞，就写一片文章吧。</p><p>##突破口<br>在一次<code>nmap</code>扫描过程中发现了目标机子8100端口存在<code>java RMI</code>服务，于是用<code>attackRMI.jar</code>链接该端口。</p><p>成功回显系统信息 执行<code>cat /proc/version</code>  <code>id</code>  <code>ifconfig</code></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;博客刚搭建不久，有些美工还没做。&lt;strong&gt;##其实我不想在搞了，搭建个博客麻烦得要死。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;今天周末天气不错，兜兜转转也不懂要做什么。最近在搞RMI反序列化漏洞，就写一片文章吧。&lt;/p&gt;
-&lt;p&gt;##突破口&lt;br&gt;在一次&lt;code&gt;nmap&lt;
-      
-    
-    </summary>
-    
-      <category term="web安全" scheme="OneHone.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="RMI漏洞" scheme="OneHone.github.io/tags/RMI%E6%BC%8F%E6%B4%9E/"/>
-    
-      <category term="内网渗透" scheme="OneHone.github.io/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
-    
-  </entry>
-  
 </feed>
