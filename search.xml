@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Veil3.1免杀安装]]></title>
     <url>%2F2018%2F03%2F23%2FVeil3.1%E5%85%8D%E6%9D%80%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[听说很难安装。 准备工作下载最新3.0版本的VeilGithub：https://github.com/Veil-Framework/Veil-Evasion 配置环境安装之前先更新一下包，执行命令apt-get update下载配置Veil所需的包，不然会报错，在终端输入：apt-get install libncurses5*apt-get install libavutil55*apt-get install gcc-mingw-w64*apt-get install wine32如果下载失败就挂个代理，应该没什么问题。这里要说的是红酒瓶wine，如果安装失败就使用如下三条命令：dpkg --add-architecture i386 apt-get update apt-get install wine32 输入命令wine --version查看是否安装成功。 安装解压Veil安装包unzip Veil-master.zip，cd到Veil-master/setup目录运行./setup.sh y回车安装需要点时间，喝杯水。 紧接着，一直疯狂的按next，让它安装。这里就不一一截图了。 看到这步点击finish了,然后继续安装。安装成功 运行在Veil-master文件夹下终端输入./Veil.py运行输入use 1然后 list查看payload这里测试生成个exeuse 5，然后输入IP地址和端口这里输入要生成的文件名生成成功 整个过程大致就这样，下次见。]]></content>
+    <content type="text"><![CDATA[听说很难安装。 准备工作下载最新3.1版本的VeilGithub：https://github.com/Veil-Framework/Veil-Evasion 配置环境安装之前先更新一下包，执行命令apt-get update下载配置Veil所需的包，不然会报错，在终端输入：apt-get install libncurses5*apt-get install libavutil55*apt-get install gcc-mingw-w64*apt-get install wine32如果下载失败就挂个代理，应该没什么问题。这里要说的是红酒瓶wine，如果安装失败就使用如下三条命令：dpkg --add-architecture i386 apt-get update apt-get install wine32 输入命令wine --version查看是否安装成功。 安装解压Veil安装包unzip Veil-master.zip，cd到Veil-master/setup目录运行./setup.sh y回车安装需要点时间，喝杯水。 紧接着，一直疯狂的按next，让它安装。这里就不一一截图了。 看到这步点击finish了,然后继续安装。安装成功 运行在Veil-master文件夹下终端输入./Veil.py运行输入use 1然后 list查看payload这里测试生成个exeuse 5，然后输入IP地址和端口这里输入要生成的文件名生成成功 整个过程大致就这样，下次见。]]></content>
       <categories>
         <category>免杀</category>
       </categories>
