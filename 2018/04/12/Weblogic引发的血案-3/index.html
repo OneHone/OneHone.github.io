@@ -122,7 +122,7 @@
 <meta property="og:image" content="/images/Weblogic引发的血案-3/11.PNG">
 <meta property="og:image" content="/images/Weblogic引发的血案-3/12.PNG">
 <meta property="og:image" content="/images/Weblogic引发的血案-3/13.PNG">
-<meta property="og:updated_time" content="2018-04-13T03:02:33.280Z">
+<meta property="og:updated_time" content="2018-04-13T03:22:34.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Weblogic引发的血案-3">
 <meta name="twitter:description" content="无状态">
@@ -457,7 +457,7 @@
 <p>当时第一反应就是被杀了，再一次看了进程才发现有个<code>WRSA.exe</code>杀软，好吧，第一次遇到，没注意。<br><img src="/images/Weblogic引发的血案-3/6.PNG" alt=""><br>Webroot杀软<br><img src="/images/Weblogic引发的血案-3/7.PNG" alt=""><br>手上也没有免杀的提权工具，这就很难受了。</p>
 <h4 id="meterpreter"><a href="#meterpreter" class="headerlink" title="meterpreter"></a>meterpreter</h4><p>用<code>msf</code>自带的试试，<code>search了几个15 16的提权模块，设置session之后 run！</code>然而并没有用，meterpreter<code>迁移进程</code>和<code>getsystem</code>也不管用<br>提权难啊提权难</p>
 <h2 id="内网游游"><a href="#内网游游" class="headerlink" title="内网游游"></a>内网游游</h2><p>还在为提权想办法时，扫内网发现了192.168.2.245域控存在ms17-010！这次你还不死。<br><img src="/images/Weblogic引发的血案-3/8.PNG" alt=""><br>添加用户怼！<br><img src="/images/Weblogic引发的血案-3/9.PNG" alt=""></p>
-<h3 id="远程登入"><a href="#远程登入" class="headerlink" title="远程登入"></a>远程登入</h3><p><img src="/images/Weblogic引发的血案-3/10.PNG" alt=""><br>迫不得已的时候才用这招，当时登入的时候还挤下线了，好采对方没发觉什么。</p>
+<h3 id="远程登入"><a href="#远程登入" class="headerlink" title="远程登入"></a>远程登入</h3><p><img src="/images/Weblogic引发的血案-3/10.PNG" alt=""><br>迫不得已的时候才用这招，当时登入的时候还被挤下线了，好采对方没发觉什么。</p>
 <h3 id="mimiktaz"><a href="#mimiktaz" class="headerlink" title="mimiktaz"></a>mimiktaz</h3><p><img src="/images/Weblogic引发的血案-3/11.PNG" alt=""><br>不是明文的，cmd5可破。</p>
 <h3 id="Cobalt-Strike"><a href="#Cobalt-Strike" class="headerlink" title="Cobalt Strike"></a>Cobalt Strike</h3><p>利用该域控上线个<code>cs</code>然后<code>arp</code>登入一波域内机子就差不多完事了，但是死活上线不了，各种姿势都试过了，就是不给你上线，<code>exp</code>在进程里面了就是不给你上线（能通外网），刚开始以为是该域控环境有问题，所以就拿着域管登入到其他两个域控，还是不给上线，行吧，我在换多几台试试总可以了吧？换了不下十台机子，就是不给你上线，好气。最后以为是自己的<code>Cobalt Strike</code>有问题，本地运行下<code>exp</code>结果秒上线，狗噢。</p>
 <h3 id="MSF"><a href="#MSF" class="headerlink" title="MSF"></a>MSF</h3><p>都说<code>Cobalt Strike</code>是<code>msf</code>的界面版，那我改用<code>msf</code>总行吧。<br>添加<code>msf</code>路由，使得<code>msf</code>能访问到目标内网，<a href="https://www.anquanke.com/post/id/86505" target="_blank" rel="noopener">参考文章</a><br><img src="/images/Weblogic引发的血案-3/12.PNG" alt=""><br>登入域里的机器，使用到的模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/psexec</span><br></pre></td></tr></table></figure></p>
