@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[net view命令 61188报错]]></title>
-    <url>%2F2018%2F05%2F15%2Fnet%20view%E5%91%BD%E4%BB%A4%2061188%E6%8A%A5%E9%94%99%2F</url>
+    <url>%2F2018%2F05%2F15%2Fnet%20view%E5%91%BD%E4%BB%A4%206118%E6%8A%A5%E9%94%99%2F</url>
     <content type="text"><![CDATA[小记在一次测试中执行了net view /domain命令发现报错：12System error 6118 has occurred.The list of servers for this workgroup is not currently available 一开始以为命令打错，看图 第二条命令很灵性的多个空格，秀逗。 解决方法开启Browser服务12sc Browser config start=aotosc start Browser 执行完可能需要等几分钟才能执行net view命令]]></content>
       <categories>
         <category>系统命令</category>
