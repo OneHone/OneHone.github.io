@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-04-13T03:22:34.458Z</updated>
+  <updated>2018-05-15T02:20:34.400Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title> net view命令 61188报错 </title>
+    <link href="OneHone.github.io/2018/05/15/net%20view%E5%91%BD%E4%BB%A4%2061188%E6%8A%A5%E9%94%99/"/>
+    <id>OneHone.github.io/2018/05/15/net view命令 61188报错/</id>
+    <published>2018-05-15T02:10:18.000Z</published>
+    <updated>2018-05-15T02:20:34.400Z</updated>
+    
+    <content type="html"><![CDATA[<p>小记<br><a id="more"></a><br>在一次测试中执行了<code>net view /domain</code>命令发现报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System error 6118 has occurred.</span><br><span class="line">The list of servers for this workgroup is not currently available</span><br></pre></td></tr></table></figure></p><p><img src="/images/net view命令 61188报错/1.PNG" alt=""><br>一开始以为命令打错，看图 第二条命令很灵性的多个空格，秀逗。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>开启<code>Browser</code>服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sc Browser config start=aoto</span><br><span class="line">sc start Browser</span><br></pre></td></tr></table></figure></p><p>执行完可能需要等几分钟才能执行<code>net view</code>命令</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;小记&lt;br&gt;
+    
+    </summary>
+    
+      <category term="系统命令" scheme="OneHone.github.io/categories/%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="系统命令" scheme="OneHone.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>Weblogic引发的血案-3</title>
