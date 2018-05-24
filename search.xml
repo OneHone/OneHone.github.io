@@ -2,8 +2,8 @@
 <search>
   <entry>
     <title><![CDATA[读取lsass.dmp报错]]></title>
-    <url>%2F2018%2F05%2F23%2F%E5%85%B3%E4%BA%8E%E8%AF%BB%E5%8F%96lsass-dmp%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99%2F</url>
-    <content type="text"><![CDATA[最近抓系统hash的时候，发现报错]]></content>
+    <url>%2F2018%2F05%2F23%2F%E8%AF%BB%E5%8F%96lsass-dmp%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99%2F</url>
+    <content type="text"><![CDATA[最近抓系统hash的时候，遇到了些问题。1目标机：windows 2003 X86 破解lsass.dmp首先利用procdump获取到lsass.dmp，运用mimikatz.exe解密该文件。注：32位就用32位的mimikatz破，同理64位的也是。123privilege::debugsekurlsa::minidump lsass.dmpsekurlsa::logonpasswords full 结果发现报错：1ERROR kuhl_m_sekurlsa_acquireLSA ; Minidump pInfos-&gt;MajorVersion (5) != MIMIKATZ_NT_MAJOR_VERSION (6) 查阅网上资料，原来破解lsass.dmp文件是需要系统内核版本一一对应的。比如在win03系统上获取到lsass.dmp文件要在win03下运行mimikatz破解，当然了在xp下运行mimikatz破解也是可以的，只要内核版本一样就行。 于是换了台机器成功破解lsass.dmp抓系统hash不限于该方法，从注册表里导出hash也是不错的选择。]]></content>
       <categories>
         <category>hash</category>
       </categories>
