@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-05-15T06:40:31.368Z</updated>
+  <updated>2018-05-23T05:10:27.163Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>读取lsass.dmp报错</title>
+    <link href="OneHone.github.io/2018/05/23/%E5%85%B3%E4%BA%8E%E8%AF%BB%E5%8F%96lsass-dmp%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99/"/>
+    <id>OneHone.github.io/2018/05/23/关于读取lsass-dmp文件报错/</id>
+    <published>2018-05-23T06:06:20.000Z</published>
+    <updated>2018-05-23T05:10:27.163Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近抓系统hash的时候，发现报错<br><a id="more"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近抓系统hash的时候，发现报错&lt;br&gt;
+    
+    </summary>
+    
+      <category term="hash" scheme="OneHone.github.io/categories/hash/"/>
+    
+    
+      <category term="hash" scheme="OneHone.github.io/tags/hash/"/>
+    
+  </entry>
   
   <entry>
     <title> net view命令 6118报错 </title>
