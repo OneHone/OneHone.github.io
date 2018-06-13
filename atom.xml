@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-05-28T12:24:02.215Z</updated>
+  <updated>2018-06-13T01:57:08.391Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>渗透自己的母校</title>
+    <link href="OneHone.github.io/2018/06/12/%E6%B8%97%E9%80%8F%E8%87%AA%E5%B7%B1%E7%9A%84%E6%AF%8D%E6%A0%A1/"/>
+    <id>OneHone.github.io/2018/06/12/渗透自己的母校/</id>
+    <published>2018-06-12T06:01:49.000Z</published>
+    <updated>2018-06-13T01:57:08.391Z</updated>
+    
+    <content type="html"><![CDATA[<p>起初的梦想都是黑掉自己的学校吧。<br><a id="more"></a><br>正如上面所说，一直想再一次拿到学校的shell，但最近在忙于别的事情，始终没有好的时间静下心来渗透自己的母校，这几天抽空完成了一图角，顺便写个实录。</p><h2 id="前"><a href="#前" class="headerlink" title="前"></a>前</h2><p>结合主站、C段、旁站、二级域名和端口的思路一顿乱操作发现了一处后台管理登入框存在弱口令<br><img src="/images/渗透自己的母校/1.PNG" alt=""><br>后台没有备份功能，接下来找上传点把<code>shell</code>传上去<br><img src="/images/渗透自己的母校/2.PNG" alt=""><br>后台没有多的上传点，唯独只有<code>KindEditor</code>编辑器上传功能，看到版本号已经凉了，这编辑器高版本简直无敌，之前遇到好几个都没拿下来，但这次不一样，我甚至没有过多的操作，看到版本号就溜了~</p><h2 id="中"><a href="#中" class="headerlink" title="中"></a>中</h2><p>后台没有成功拿到<code>shell</code>后又忙了几天，今天无意在浏览器的标签页看到了这网站，于是又重新审视了一番，扫描端口发现了该<code>IP</code>开了挺多的<code>web服务</code>，其中有<code>apache+tomcat</code> <code>nginx</code> <code>apache+php</code>逐个访问端口，没有发现<code>web</code>层面上的漏洞，之后在xxx端口访问到一处登入框<br><img src="/images/渗透自己的母校/3.PNG" alt=""><br>尝试弱口令无果，难道非要我祭出100w+的字典爆破！？<br>在验证账密密码过后，<code>url</code>变成了<code>http://www.xxx.xxx/login.action</code><br><img src="/images/渗透自己的母校/4.PNG" alt=""><br>记得在学校的时候老师讲<code>struts2</code>可厉害了，怪我是个差学生，不好好听课。<br>言归正传，<code>xxx.action、xxx.do</code>这些后缀是典型的<code>struts2</code>框架啊，立马用脚本验证了下，果真存在漏洞。<br><img src="/images/渗透自己的母校/5.PNG" alt=""><br>执行命令，收集目标机的情况<br><img src="/images/渗透自己的母校/6.PNG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whoami --&gt;system权限</span><br><span class="line">ipconfig --&gt;公网IP</span><br><span class="line">tasklist --&gt;无杀软无狗（惊了）</span><br><span class="line">3389 --&gt;开</span><br></pre></td></tr></table></figure></p><p>上cs<br><img src="/images/渗透自己的母校/7.PNG" alt=""><br>加载<code>mimikatz</code>获取明文<br><img src="/images/渗透自己的母校/8.PNG" alt=""><br>上传一句话<br><img src="/images/渗透自己的母校/9.PNG" alt=""><br>页面报错，没关系，直接用菜刀链<br><img src="/images/渗透自己的母校/10.PNG" alt=""><br>菜刀报错，没关系，换把刀<br><img src="/images/渗透自己的母校/11.PNG" alt=""><br>OK 继续下去，还没完，远程登入进去<br><img src="/images/渗透自己的母校/12.PNG" alt=""><br>数据库<br><img src="/images/渗透自己的母校/13.PNG" alt=""><br>打算往内网走，但内网没别的机器。<br><img src="/images/渗透自己的母校/14.PNG" alt=""></p><h2 id="后"><a href="#后" class="headerlink" title="后"></a>后</h2><p>后续<br><img src="/images/渗透自己的母校/15.PNG" alt=""><br>呵</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;起初的梦想都是黑掉自己的学校吧。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="web安全" scheme="OneHone.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="Web渗透" scheme="OneHone.github.io/tags/Web%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>PHP版ms17-010</title>
