@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-06-13T01:57:08.391Z</updated>
+  <updated>2018-07-11T10:36:58.317Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次渗透测试</title>
+    <link href="OneHone.github.io/2018/07/11/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    <id>OneHone.github.io/2018/07/11/记一次渗透测试/</id>
+    <published>2018-07-11T09:01:59.000Z</published>
+    <updated>2018-07-11T10:36:58.317Z</updated>
+    
+    <content type="html"><![CDATA[<p>湖人总冠军！<br><a id="more"></a></p><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近手里有瓶茅台酒，打算拿出去卖，于是上网搜高价回收烟酒，加了个卖家，聊了几句，发现对方态度不咋滴，收购价也低（后来知道这货比同行收购价少了四百块）。本着正义，对该网站进行了测试。<br>目标：<code>www.a.com</code></p><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">端口:80</span><br><span class="line">旁站：www.b.com www.c.com(实际中还有三个旁站，但没啥利用，就不写了)</span><br><span class="line">通过页面报错可知：iis7.5+win08</span><br></pre></td></tr></table></figure><h3 id="怼"><a href="#怼" class="headerlink" title="怼"></a>怼</h3><p>对a.com进行了测试，并未发现web层面上的漏洞，于是转向旁站。<br>对旁站b.com测试发现，该网站采用了<code>phpwebCMS</code>， 该cms的某些版本存在万能钥匙<br><img src="/images/记一次渗透测试/1.PNG" alt=""><br>想进后台？不存在的。第二个突破点是该后台还可以用burp爆破，页面不刷新验证码就不会变，挂了top1000的字典没跑出来，爆破看人品~。<br>接下来对c.com测试，输入<code>robots.txt</code><br><img src="/images/记一次渗透测试/2.PNG" alt=""><br>熟悉不过了，dedecms，输入/dede，跳到管理后台<br><img src="/images/记一次渗透测试/3.PNG" alt=""><br>版本：<code>Dedev57</code> 想到之前有段代码能把管理员的账号密码给爆出来，于是试了一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plus/recommend.php?action=&amp;aid=1&amp;_FILES[type][tmp_name]=\&apos; or mid=@`\&apos;` /*!50000union*//*!50000select*/1,2,3,(select CONCAT(0x7c,userid,0x7c,pwd)+from+`#@__admin` limit+0,1),5,6,7,8,9#@`\&apos;`+&amp;_FILES[type][name]=1.jpg&amp;_FILES[type][type]=application/octet-stream&amp;_FILES[type][size]=4294</span><br></pre></td></tr></table></figure></p><p>结果被waf拦了<br><img src="/images/记一次渗透测试/4.PNG" alt=""><br>没办法，回到dede后台，尝试弱口令无果之后，就结合域名猜，猜了好久，记得当时是晚上十一点多，已经到了撩螺的时间，心想再试最后一分钟，没想到还真试出来了，密码：域名+0000<br><img src="/images/记一次渗透测试/5.PNG" alt=""><br>皮~，通过文件管理器将马子传上去，结果又被waf拦了<br><img src="/images/记一次渗透测试/6.PNG" alt=""><br>好吧，放弃撩螺时间，怼。<br>传php内容为一句话，杀<br>传php内容为1，杀<br>传txt内容为一句话，不杀<br>Dede有文件改名功能，所以把一句话写入txt，将txt改名为php即可绕过waf(尴尬)<br><img src="/images/记一次渗透测试/7.PNG" alt=""><br>上刀！<br><img src="/images/记一次渗透测试/8.PNG" alt=""><br>不想被查水表，所以打码狠点</p><h2 id="有点意思"><a href="#有点意思" class="headerlink" title="有点意思"></a>有点意思</h2><p>菜刀执行cmd：<br><img src="/images/记一次渗透测试/9.PNG" alt=""><br>发现报错，响应也看不懂<br>本站支持的脚本为：php，asp，针对该环境整理一下提权思路：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过php进行提权，看是否能绕过disabled_function，进行命令执行</span><br><span class="line">通过asp进行提权，用asp的cmd马执行命令</span><br><span class="line">通过mysql进行提权，读取配置文件，找root密码，进行udf，mof提权</span><br><span class="line">代理出来，通过ms17-010</span><br></pre></td></tr></table></figure></p><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>通过<code>phpinfo</code>查看禁止了哪些函数以及是否为安全模式<br><img src="/images/记一次渗透测试/10.PNG" alt=""><br><img src="/images/记一次渗透测试/11.PNG" alt=""><br>安全模式为off，没有禁掉exec_shell，可以用该函数执行命令<br><img src="/images/记一次渗透测试/12.PNG" alt=""><br>报错？难道姿势不对？那换种姿势看看<br><img src="/images/记一次渗透测试/13.PNG" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;湖人总冠军！&lt;br&gt;
+    
+    </summary>
+    
+      <category term="web安全" scheme="OneHone.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="Web渗透" scheme="OneHone.github.io/tags/Web%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>渗透自己的母校</title>
