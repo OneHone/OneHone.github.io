@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-07-12T03:10:05.790Z</updated>
+  <updated>2018-08-03T08:07:53.380Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>某站点的简单测试</title>
+    <link href="OneHone.github.io/2018/08/17/%E6%9F%90%E7%AB%99%E7%82%B9%E7%9A%84%E7%AE%80%E5%8D%95%E6%B5%8B%E8%AF%95/"/>
+    <id>OneHone.github.io/2018/08/17/某站点的简单测试/</id>
+    <published>2018-08-17T02:01:59.000Z</published>
+    <updated>2018-08-03T08:07:53.380Z</updated>
+    
+    <content type="html"><![CDATA[<p>要做有纯粹的事。<br><a id="more"></a></p><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>闲来无事</p><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IP：x.100</span><br><span class="line">端口：80 3389 1433</span><br><span class="line">网站框架：win08+iis7.5+asp aspx</span><br><span class="line">存在sql注入:mssql</span><br></pre></td></tr></table></figure><h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>丢到sqlmap跑，发现竟然是个<code>sa</code>注入。<br><img src="/images/某站点的简单测试/1.PNG" alt=""><br><code>--os-shell</code>执行命令报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[11:05:22] [CRITICAL] unable to prompt for an interactive operating system shell via the back-end DBMS because stacked queries SQL injection is not supported</span><br><span class="line">[11:05:22] [WARNING] HTTP error codes detected during run:</span><br><span class="line">500 (Internal Server Error) - 1 times</span><br></pre></td></tr></table></figure></p><p>这里有两条路走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.翻账密进后台getshell</span><br><span class="line">2.手工开启xp_cmdshell</span><br></pre></td></tr></table></figure></p><h3 id="一、后台"><a href="#一、后台" class="headerlink" title="一、后台"></a>一、后台</h3><p>在后台找到上传点<br><img src="/images/某站点的简单测试/2.PNG" alt=""><br>上传失败，提示：该账号没有权限上传，请联系管理员<br><img src="/images/某站点的简单测试/3.PNG" alt=""><br>明明拿的是管理员账号却没有上传权限，逗我呢？<br>后台没戏，功能点太少，唯独上传文件的点也被禁了。</p><h3 id="二、手工"><a href="#二、手工" class="headerlink" title="二、手工"></a>二、手工</h3><p>既然后台get不到shell，何不看看后台有没有注入点呢。经验一番的测试，存在注入点，于是手工开启<code>xp_cmdshell</code>（第一个前台注点也是可以开启的，但这里用的是后台注入点。）<br>看看<code>mssql</code>是否被降权：<br><img src="/images/某站点的简单测试/4.PNG" alt=""><br>OK，system权限<br>添加用户远程连接进去就差不多完事了，但连接时报错<br><img src="/images/某站点的简单测试/5.PNG" alt=""><br>登入失败，回头执行net user 用户名  查看添加进去的用户确实在<code>Administrators</code>组里，难道是站库分离结构？<br>于是<code>ipconfig /all</code>看下IP<br><img src="/images/某站点的简单测试/6.PNG" alt=""><br>噢嚯，显示不全，类似的， <code>tasklist</code>命令也看不全，换条命令试试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic.exe /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get *</span><br></pre></td></tr></table></figure></p><p>查看系统是否安装了杀软，同样显示不全。<br>接下来，在不明确是否有杀软的环境下反弹一个<code>msf</code>的<code>shell</code>回来，<code>msf</code>监听好端口然后利用<code>bistadmin</code>命令将免杀马丢上目标机运行<br><img src="/images/某站点的简单测试/7.PNG" alt=""><br>成功接受到shell，但是执行完第一条之后就被杀了。看了一下<code>virustotal.com</code>报告<br><img src="/images/某站点的简单测试/8.PNG" alt=""><br>百度杀软额外的亮眼、言归正传，马子被杀了，那就换一个，找了个免杀<code>nc.dll</code>反弹<code>cmd</code><br><img src="/images/某站点的简单测试/9.PNG" alt=""><br>OK，看看到底是哪路杀软<br><img src="/images/某站点的简单测试/10.PNG" alt=""><br>微软MsMpEng.exe</p><h3 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systeminfo --&gt;Windows Serverr 2008 Standard x64 工作组</span><br><span class="line">ipconfig --&gt;x.101（公网）</span><br><span class="line">tasklist --&gt; MsMpEng.exe杀软</span><br></pre></td></tr></table></figure><p>这样子就确定了站库分离结构，<code>x.100</code>网站 <code>x.101</code>数据库，难怪之前连接错误，然后远程链接<code>x.101</code><br><img src="/images/某站点的简单测试/11.PNG" alt=""></p><h2 id="简单的内网渗透"><a href="#简单的内网渗透" class="headerlink" title="简单的内网渗透"></a>简单的内网渗透</h2><p>反弹个<code>cs</code>会话<br><img src="/images/某站点的简单测试/12.PNG" alt=""><br>dump管理员<code>hash</code><br><img src="/images/某站点的简单测试/13.PNG" alt=""><br>代理访问内网，用<code>msf</code>里的模块，扫描内网信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auxiliary/scanner/smb/smb_version</span><br></pre></td></tr></table></figure></p><p><img src="/images/某站点的简单测试/14.PNG" alt=""><br>Ok 发现域，扫描该IP(x.222)也存在445的洞，于是用445的payload反弹个<code>cs</code>会话回来<br><img src="/images/某站点的简单测试/15.PNG" alt=""><br>收集该机子的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systeminfo --&gt;Windows Serverr 2012 Standard x64</span><br><span class="line">所在域:AD</span><br><span class="line">ipconfig --&gt;x.222（公网）</span><br><span class="line">tasklist --&gt;无杀软</span><br></pre></td></tr></table></figure></p><p>既然在域里边，那就找找域管，找找域控<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net group #查看组</span><br><span class="line">net group &quot;domain admins&quot; /domain 查看域管理员</span><br><span class="line">net group &quot;Domain Controllers&quot; /domain 查看域控</span><br></pre></td></tr></table></figure></p><p>运气还不错，x.222这台就是域控机<br><img src="/images/某站点的简单测试/16.PNG" alt=""><br><img src="/images/某站点的简单测试/17.PNG" alt=""><br>查看目录中的机器名:dsquery computer<br><img src="/images/某站点的简单测试/18.PNG" alt=""><br>一共四台机子，既然拿到了域控，就dump哈希然后<code>hash注入</code>，让其余的机子上线<code>cs</code><br><img src="/images/某站点的简单测试/19.PNG" alt=""><br>OK，整个过程到此结束，擦屁股走人~至于内网的深度这里就不再研究了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;要做有纯粹的事。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="web安全" scheme="OneHone.github.io/categories/web%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="Web渗透" scheme="OneHone.github.io/tags/Web%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次渗透测试</title>
