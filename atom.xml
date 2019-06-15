@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2018-12-06T03:14:46.443Z</updated>
+  <updated>2019-06-15T15:22:25.734Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go-wget</title>
+    <link href="OneHone.github.io/2019/06/15/Go-wget/"/>
+    <id>OneHone.github.io/2019/06/15/Go-wget/</id>
+    <published>2019-06-15T12:35:30.000Z</published>
+    <updated>2019-06-15T15:22:25.734Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前项目用到，考虑原生的wget有大小限制，所以用Goland写了个。<br><a id="more"></a></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">wget for goland</span><br><span class="line">author:Hone</span><br><span class="line">blog:http://hone.cool</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">        &quot;io&quot;</span><br><span class="line">        &quot;net/http&quot;</span><br><span class="line">        &quot;os&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func DownloadFile(url string, filepath string) &#123;</span><br><span class="line"></span><br><span class="line">        resp, err := http.Get(url)</span><br><span class="line">        check(err)</span><br><span class="line">        defer resp.Body.Close()</span><br><span class="line"></span><br><span class="line">        out, err := os.Create(filepath)</span><br><span class="line">        check(err)</span><br><span class="line">        defer out.Close()</span><br><span class="line"></span><br><span class="line">        // Write the body to file</span><br><span class="line">        _, err = io.Copy(out, resp.Body)</span><br><span class="line">        check(err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func check(err error) &#123;</span><br><span class="line">        if err != nil &#123;</span><br><span class="line">                panic(err)</span><br><span class="line">        &#125;</span><br><span class="line">&#125; //End check()</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">DownloadFile(os.Args[1], os.Args[2])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>用法：test.exe 远程下载地址 本地保存路径 (注：本地保存路径如有空格需用双引号括起来)<br>例：test.exe <a href="http://xxx.xxx.xxx/x.exe" target="_blank" rel="noopener">http://xxx.xxx.xxx/x.exe</a> “C:\Documents and Settings\Administrator\Desktop\x.exe”</p><h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/images/[Go]wget/wget.gif" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前项目用到，考虑原生的wget有大小限制，所以用Goland写了个。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="测试工具" scheme="OneHone.github.io/categories/%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Go" scheme="OneHone.github.io/tags/Go/"/>
+    
+      <category term="wget" scheme="OneHone.github.io/tags/wget/"/>
+    
+  </entry>
   
   <entry>
     <title>Metinfo Bypasss安全狗</title>
