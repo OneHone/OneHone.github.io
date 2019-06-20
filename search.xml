@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[获取MySQL-Workbench本地保存密码]]></title>
     <url>%2F2019%2F06%2F19%2F%E8%8E%B7%E5%8F%96MySQL-Workbench%E6%9C%AC%E5%9C%B0%E4%BF%9D%E5%AD%98%E5%AF%86%E7%A0%81%2F</url>
-    <content type="text"><![CDATA[平时用Navicat比较多，第一次使用MySQL Workbench，目的是获取该软件保存在本地的链接信息(IP、端口、账号以及密码)。在网上找了一圈没有找到相关破解教程，于是自己研究了一下。 定位12测试版本：MySQL Workbench 8.0.16测试系统：win7 x64 安装过程就不说了，直接进入主题。凭猜测该软件会不会像Navicat一样，把链接信息写在注册表上，查询键值即可得到密文。而MySQL Workbench所定位的注册表是这样的：显然这里的键值并不是我想要的。第二个猜测点是该程序运行时会读取某个配置文件，于是用Procmon监视其的行为流程：先在Workbench里创建一个链接，然后开启监听，再返回到创建页面点击保存。点击保存后，得到的数据包如下：最后定位到了workbench_user_data.dat文件，用编辑器打开显示乱码，用IDA看也没找到什么。于是查了一下这文件名还真找到了解密方法，参考链接 效果直接是明文]]></content>
+    <content type="text"><![CDATA[平时用Navicat比较多，第一次使用MySQL Workbench，目的是获取该软件保存在本地的链接信息(IP、端口、账号以及密码)。在网上找了一圈没有找到相关破解教程，于是自己研究了一下。 定位12测试版本：MySQL Workbench 8.0.16测试系统：win7 x64 安装过程就不说了，直接进入主题。凭猜测该软件会不会像Navicat一样，把链接信息写在注册表上，查询键值即可得到密文。而MySQL Workbench所定位的注册表是这样的：显然这里的键值并不是我想要的。第二个猜测点是该程序运行时会读取某个配置文件，所以用Procmon监视其的行为流程：先在Workbench里创建一个链接，然后开启监听，再返回到创建页面点击保存。点击保存后，得到的数据包如下：最后定位到了workbench_user_data.dat文件，用编辑器打开显示乱码，用IDA看也没找到什么。然后查了一下这文件名还真找到了解密方法，参考链接 效果直接是明文]]></content>
       <categories>
         <category>测试工具</category>
       </categories>
