@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[C#免杀Shellcode加载器]]></title>
-    <url>%2F2019%2F11%2F05%2F%E5%85%8D%E6%9D%80-C-Shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8%2F</url>
+    <url>%2F2019%2F11%2F26%2F%E5%85%8D%E6%9D%80-C-Shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8%2F</url>
     <content type="text"><![CDATA[我的船可是出了名的快啊。 前言一个月前写的工具，考虑到之前用python免杀体积有点大，所以这次用.net写了个。免杀360（2019.11.26） 其他杀软自行测试。 免杀原理Shellcode base64加密 payload制作以Cs为演示：payload。payload Generator –&gt;Output C# shellcode Base64加密将shellcode替换下述第三行代码中base64Encode.py1234import base64bs64=base64.b64encode(&quot;0xfc, 0xe8, 0x89, 0x00, 0x00, 0x00, 0x60, 0x89....&quot;)print bs64 运行base64Encode.py得到加密shellcode 加载器执行shellcode使用说明：1shellcode.exe ShellcodeBase64 源码找不到，就不贴了。后续版本看情况发布。 效果图下载地址：https://github.com/OneHone/C–Shellcode]]></content>
       <categories>
         <category>免杀</category>
