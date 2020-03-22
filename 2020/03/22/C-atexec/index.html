@@ -109,10 +109,12 @@
 <meta property="og:site_name" content="Hone老帅">
 <meta property="og:description" content="平常心">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-22T14:47:36.874Z">
+<meta property="og:image" content="/images/c-atexec/1.PNG">
+<meta property="og:updated_time" content="2020-03-22T15:47:56.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C# atexec">
 <meta name="twitter:description" content="平常心">
+<meta name="twitter:image" content="/images/c-atexec/1.PNG">
 
 
 
@@ -439,7 +441,12 @@
 
       
         <p>平常心<br><a id="more"></a></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工具的编写思路参考impacket中的atexec.py<a href="https://raw.githubusercontent.com/SecureAuthCorp/impacket/master/examples/atexec.py" target="_blank" rel="noopener">atexec.py</a><br>通过Task Scheduler服务在目标系统上执行命令，并返回输出结果。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工具的创造思路参考impacket中的<a href="https://raw.githubusercontent.com/SecureAuthCorp/impacket/master/examples/atexec.py" target="_blank" rel="noopener">atexec.py</a>,但由于其编译出来的exe体积过大、不免杀等原因，造成在实际环境中无法使用。<br>atexec(c#)正是为了解决这些问题而编写的。</p>
+<h3 id="工具原理"><a href="#工具原理" class="headerlink" title="工具原理"></a>工具原理</h3><p>通过Task Scheduler服务在目标系统上执行命令，并返回输出结果。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">atexec.exe -h ip -u username -p password -c command</span><br><span class="line">atexec.exe -h ip -u username -p password -d domain -c command</span><br><span class="line">atexec.exe -h ip -u username -p password -d domain -c command -s 5000</span><br></pre></td></tr></table></figure>
+<p>程序默认休眠3s，以等待命令执行完毕。<br>殊：执行systeminfo命令，需添加命令 -s 5000或者-s 8000。不然时间太短会读不到返回结果</p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="/images/c-atexec/1.PNG" alt=""></p>
+<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://raw.githubusercontent.com/OneHone/HoneTool/master/atexec/atexec.exe" target="_blank" rel="noopener">atexec</a></p>
 
       
     </div>
@@ -752,7 +759,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具原理"><span class="nav-number">2.</span> <span class="nav-text">工具原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果图"><span class="nav-number">4.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载地址"><span class="nav-number">5.</span> <span class="nav-text">下载地址</span></a></li></ol></div>
             
 
           </div>

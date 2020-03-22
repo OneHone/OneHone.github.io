@@ -4,7 +4,12 @@
     <title>C# atexec</title>
     <url>/2020/03/22/C-atexec/</url>
     <content><![CDATA[<p>平常心<br><a id="more"></a></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工具的编写思路参考impacket中的atexec.py<a href="https://raw.githubusercontent.com/SecureAuthCorp/impacket/master/examples/atexec.py" target="_blank" rel="noopener">atexec.py</a><br>通过Task Scheduler服务在目标系统上执行命令，并返回输出结果。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工具的创造思路参考impacket中的<a href="https://raw.githubusercontent.com/SecureAuthCorp/impacket/master/examples/atexec.py" target="_blank" rel="noopener">atexec.py</a>,但由于其编译出来的exe体积过大、不免杀等原因，造成在实际环境中无法使用。<br>atexec(c#)正是为了解决这些问题而编写的。</p>
+<h3 id="工具原理"><a href="#工具原理" class="headerlink" title="工具原理"></a>工具原理</h3><p>通过Task Scheduler服务在目标系统上执行命令，并返回输出结果。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">atexec.exe -h ip -u username -p password -c command</span><br><span class="line">atexec.exe -h ip -u username -p password -d domain -c command</span><br><span class="line">atexec.exe -h ip -u username -p password -d domain -c command -s 5000</span><br></pre></td></tr></table></figure>
+<p>程序默认休眠3s，以等待命令执行完毕。<br>殊：执行systeminfo命令，需添加命令 -s 5000或者-s 8000。不然时间太短会读不到返回结果</p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="/images/c-atexec/1.PNG" alt=""></p>
+<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://raw.githubusercontent.com/OneHone/HoneTool/master/atexec/atexec.exe" target="_blank" rel="noopener">atexec</a></p>
 ]]></content>
       <tags>
         <tag>工具</tag>
